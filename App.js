@@ -7,28 +7,21 @@ import {
   ScrollView,
 } from 'react-native';
 
+const NUMEBER_OF_ELEMENTS = 5;
 const {
     height: deviceHeight,
     } = Dimensions.get('window');
 
-const NUMEBER_OF_ELEMENTS = 5;
-export default class App extends Component<{}> {
+export default class App extends Component {
 state = {
   offset: 0,
   end: false,
-        }
-
+}
+/**
+ * Calculating witch way did the user scroll and moving the ScrollView due to that scroll
+ * @param { object } e - native event from scroll
+ */
  handleScroll = (e) => {
-    // console.log('offset======', e.nativeEvent.contentOffset.y);
-    // this.myScroll.measure((fx, fy, width, height, px, py) => {
-    //   console.log('Component width is: ', width);
-    //   console.log('Component height is: ', height);
-    //   console.log('X offset to frame: ', fx);
-    //   console.log('Y offset to frame: ', fy);
-    //   console.log('X offset to page: ', px);
-    //   console.log('Y offset to page: ', py);
-    // });
-
     let offsetValue;
     if (this.state.offset < e.nativeEvent.contentOffset.y) {
       const offsetSlides = Math.ceil(e.nativeEvent.contentOffset.y / 400);
@@ -67,10 +60,9 @@ state = {
   render() {
     return (
       <ScrollView
-        ref={comp => this.myScroll = comp}
-      //  onMomentumScrollEnd={this.handleScroll}
+        ref={comp => { this.myScroll = comp; }}
+        //  onMomentumScrollEnd={this.handleScroll} need to talk about this
         onScrollEndDrag={this.handleScroll}
-        scrollEventThrottle={0}
       >
         {this.renderComponents()}
     </ScrollView>
