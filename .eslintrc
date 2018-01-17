@@ -1,5 +1,8 @@
 extends: airbnb
 
+parser:
+  babel-eslint
+
 settings:
   ecmascript: 6
 
