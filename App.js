@@ -7,6 +7,9 @@ import {
   ScrollView,
 } from 'react-native';
 import { Colors, FontsSizes } from './resources';
+import TextAnimated from './TextAnimated.js';
+
+const dummyText = 'Yesterday all my troubles seemed so far away. Now it looks as though they are here to stay. Oh, I believe in yesterday.';
 
 const NUMEBER_OF_ELEMENTS = 5;
 const {
@@ -63,12 +66,9 @@ export default class App extends Component {
 
   render() {
     return (
-      <ScrollView
-        ref={ comp => { this.myScroll = comp; } }
-        onScrollEndDrag={ this.handleScroll }
-      >
-        {this.renderComponents()}
-      </ScrollView>
+      <View style={ styles.container }>
+        <TextAnimated text={ dummyText } duration={ 3000 } />
+      </View>
     );
   }
 }
