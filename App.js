@@ -67,7 +67,7 @@ export default class App extends Component {
   render() {
     return (
       <View style={ styles.container }>
-        <TextAnimated text={ dummyText } duration={ 3000 } />
+        <TextAnimated text={ dummyText } duration={ 5000 } />
       </View>
     );
   }
@@ -78,7 +78,7 @@ const styles = StyleSheet.create({
     height: 400,
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center',
+    // alignItems: 'center',
     backgroundColor: Colors.red,
     borderBottomWidth: 1,
     borderColor: Colors.black,

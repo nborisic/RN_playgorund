@@ -62,9 +62,9 @@ export default class TextAnimated extends Component {
   }
 
   renderTextAsArray(text) {
-    return text.split(' ').map((word, index) => { //eslint-disable-line
+    return text.split(' ').map((word, index) => {
       return (
-        <Text style={ styles.text } onLayout={ (event) => this.handleOnLayout(event, word, index) } key={ index }>{ word } </Text>
+        <Text style={ styles.text } onLayout={ event => this.handleOnLayout(event, word, index) } key={ index }>{ word } </Text>
       );
     });
   }
@@ -74,7 +74,7 @@ export default class TextAnimated extends Component {
     const { lines } = this.state;
     return lines.map((item, index) => {
       return (
-        <Line line={ item } key={ index } duration={ duration } />
+        <Line line={ item } index={ index } key={ index } duration={ duration } />
       );
     });
   }
@@ -98,7 +98,7 @@ TextAnimated.propTypes = {
 
 const styles = StyleSheet.create({
   container: {
-    justifyContent: 'center',
+  //  justifyContent: 'center',
   },
   text: {
     position: 'absolute',

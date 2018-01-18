@@ -18,10 +18,12 @@ export default class Line extends Component {
     };
   }
   componentDidMount() {
+    const delay = this.props.index * 300;
     Animated.timing(
       this.state.widthAnimation,
       {
-        toValue: 350,
+        delay,
+        toValue: 370,
         duration: this.props.duration,
       }
     ).start();
@@ -41,7 +43,7 @@ export default class Line extends Component {
           singleLetter = word.charAt(i) === word.charAt(i).toUpperCase() ? singleLetter.toUpperCase() : singleLetter;
           randomWord += singleLetter;
         }
-        randomSentenceArray.push(randomWord);
+        randomSentenceArray.push(`${ randomWord } `);
         return true;
       });
       this.setState({
@@ -60,7 +62,16 @@ export default class Line extends Component {
     const { randomSentenceArray } = this.state;
     return randomSentenceArray ? randomSentenceArray.map((item, index) => {
       return (
-        <Text style={ styles.text } key={ index }>{ item } </Text>
+        <Text
+          ellipsizeMode='clip'
+          numberOfLines={ 1 }
+          style={ {
+          flexDirection: 'row',
+          height: FontsSizes.medium,
+          } }
+          key={ index }
+        >{ item }
+        </Text>
       );
     }) : null;
   }
@@ -68,9 +79,14 @@ export default class Line extends Component {
   render() {
     const { line } = this.props;
     const { stop, widthAnimation } = this.state;
+
+    const styleFromStyles = styles.animatedView;
+    const widthObject = {
+      width: widthAnimation,
+    };
     return (
       <Animated.View
-        style={{ width: widthAnimation, paddingLeft: 10, flexDirection: 'column' } } // eslint-disable-line
+        style={ [styleFromStyles, widthObject] }
       >
         { stop ? <Text style={ styles.text }>{ line }</Text> : this.renderRandomWords() }
       </Animated.View>
@@ -81,13 +97,20 @@ export default class Line extends Component {
 Line.propTypes = {
   line: PropTypes.string,
   duration: PropTypes.number,
+  index: PropTypes.number,
 };
 
 const styles = StyleSheet.create({
   text: {
-    color: Colors.white,
-    backgroundColor: 'blue',
+    color: Colors.black,
     height: FontsSizes.medium,
+  },
+  animatedView: {
+    overflow: 'hidden',
+    alignSelf: 'flex-start',
+    paddingLeft: 10,
+    flexDirection: 'row',
+    backgroundColor: 'blue',
   },
   lineStyle: {
     flexDirection: 'row',
