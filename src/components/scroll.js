@@ -9,10 +9,14 @@ import {
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import * as actions from '../../actions';
-import { Colors, FontsSizes } from '../../resources';
+import {
+  Colors,
+  FontsSizes,
+  PixelSizes,
+  BorderSizes } from '../../resources';
+import { numberOfElements, elementHeight } from '../../utils/scroll';
 
 
-const NUMEBER_OF_ELEMENTS = 5;
 const {
   height: deviceHeight,
 } = Dimensions.get('window');
@@ -40,12 +44,12 @@ class Scroll extends Component {
     let offsetValue;
     let offsetSlides;
     if (this.state.offset < e.nativeEvent.contentOffset.y) {
-      offsetSlides = Math.ceil(e.nativeEvent.contentOffset.y / 400);
+      offsetSlides = Math.ceil(e.nativeEvent.contentOffset.y / elementHeight);
     } else {
-      offsetSlides = Math.floor(e.nativeEvent.contentOffset.y / 400);
+      offsetSlides = Math.floor(e.nativeEvent.contentOffset.y / elementHeight);
     }
-    offsetValue = offsetSlides * 400;
-    if (offsetValue === (NUMEBER_OF_ELEMENTS - 1) * 400) {
+    offsetValue = offsetSlides * elementHeight;
+    if (offsetValue === (numberOfElements - 1) * elementHeight) {
       offsetValue = e.nativeEvent.contentSize.height - deviceHeight;
     } else if (offsetValue < 0) {
       offsetValue = 0;
@@ -58,7 +62,7 @@ class Scroll extends Component {
 
   renderComponents() {
     const componentsArray = [];
-    for (let i = 0; i < NUMEBER_OF_ELEMENTS; i++) {
+    for (let i = 0; i < numberOfElements; i++) {
       componentsArray.push(
         <View style={ styles.container } key={ i }>
           <Text style={ styles.welcome }>
@@ -88,18 +92,18 @@ class Scroll extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    height: 400,
+    height: elementHeight,
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: Colors.red,
-    borderBottomWidth: 1,
+    borderBottomWidth: BorderSizes.thin,
     borderColor: Colors.black,
   },
   welcome: {
     fontSize: FontsSizes.medium,
     textAlign: 'center',
-    margin: 10,
+    margin: PixelSizes.medium,
   },
 });
 

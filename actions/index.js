@@ -1,4 +1,5 @@
 import { createClient } from 'contentful';
+import { clientToken, handbookGuideModel } from '../utils/contentful';
 
 export const GET_DATA_START = 'GET_DATA_START';
 export const GET_DATA_ERROR = 'GET_DATA_ERROR';
@@ -26,16 +27,13 @@ function getDataError(error) {
 }
 
 
-const client = createClient({
-  space: 'sduryu1qgysh',
-  accessToken: '78e6c2a2d85a58f3cc2fd4a2817020045b30778012c2814f81593b48ee6e919c',
-});
+const client = createClient(clientToken);
 
 export function getData() {
   return function (dispatch) {
     dispatch(getDataStart());
     client.getEntries({
-      content_type: 'H_guide',
+      content_type: handbookGuideModel,
     })
       .then(data => dispatch(getDataSuccess(data)))
       .catch(error => dispatch(getDataError(error)));
