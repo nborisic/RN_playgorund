@@ -8,11 +8,11 @@ import {
 import PropTypes from 'prop-types';
 import Line from './Line';
 
-const wordsWidthArray = [];
 
 export default class TextAnimated extends Component {
   constructor() {
     super();
+    this.wordsWidthArray = [];
     this.state = {
       screenWidth: Dimensions.get('window').width,
       lines: null,
@@ -24,7 +24,7 @@ export default class TextAnimated extends Component {
 
   getLineByLine() {
     const { screenWidth } = this.state;
-    const sortedArray = wordsWidthArray.sort((a, b) => {
+    const sortedArray = this.wordsWidthArray.sort((a, b) => {
       return a.index - b.index;
     });
     let sum = 0;
@@ -54,7 +54,7 @@ export default class TextAnimated extends Component {
   }
 
   handleOnLayout(event, word, index) {
-    wordsWidthArray.push({
+    this.wordsWidthArray.push({
       word,
       index,
       width: event.nativeEvent.layout.width,
@@ -83,7 +83,7 @@ export default class TextAnimated extends Component {
     const { text } = this.props;
     const { lines } = this.state;
     return (
-      <View style={ styles.container }>
+      <View>
         { this.renderTextAsArray(text) }
         { lines ? this.renderLines() : null }
       </View>
@@ -97,9 +97,6 @@ TextAnimated.propTypes = {
 };
 
 const styles = StyleSheet.create({
-  container: {
-  //  justifyContent: 'center',
-  },
   text: {
     position: 'absolute',
     top: -9999,

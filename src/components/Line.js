@@ -5,7 +5,7 @@ import {
   Animated,
 } from 'react-native';
 import PropTypes from 'prop-types';
-import { Colors, FontsSizes } from './resources';
+import { Colors, FontsSizes, PixelSizes } from '../../resources';
 
 export default class Line extends Component {
   constructor() {
@@ -23,7 +23,7 @@ export default class Line extends Component {
       this.state.widthAnimation,
       {
         delay,
-        toValue: 370,
+        toValue: 360,
         duration: this.props.duration,
       }
     ).start();
@@ -108,13 +108,13 @@ const styles = StyleSheet.create({
   animatedView: {
     overflow: 'hidden',
     alignSelf: 'flex-start',
-    paddingLeft: 10,
+    paddingLeft: PixelSizes.small,
     flexDirection: 'row',
-    backgroundColor: 'blue',
+    backgroundColor: Colors.blue,
   },
   lineStyle: {
     flexDirection: 'row',
-    paddingLeft: 10,
-    paddingRight: 10,
+    paddingLeft: PixelSizes.small,
+    paddingRight: PixelSizes.small,
   },
 });
