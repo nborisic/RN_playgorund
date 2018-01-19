@@ -15,6 +15,7 @@ import {
   PixelSizes,
   BorderSizes } from '../../resources';
 import { numberOfElements, elementHeight } from '../../utils/scroll';
+import TextAnimated from './TextAnimated';
 
 
 const {
@@ -62,12 +63,14 @@ class Scroll extends Component {
 
   renderComponents() {
     const componentsArray = [];
+    const text = this.props.data.contentfulData.items[0].fields.shortDescritpion;
     for (let i = 0; i < numberOfElements; i++) {
       componentsArray.push(
         <View style={ styles.container } key={ i }>
-          <Text style={ styles.welcome }>
-            { this.props.data.contentfulData.items[0].fields.shortDescritpion }
-          </Text>
+          <TextAnimated
+            text={ text }
+            duration={ 3000 }
+          />
         </View>
       );
     }
@@ -95,7 +98,6 @@ const styles = StyleSheet.create({
     height: elementHeight,
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center',
     backgroundColor: Colors.red,
     borderBottomWidth: BorderSizes.thin,
     borderColor: Colors.black,
