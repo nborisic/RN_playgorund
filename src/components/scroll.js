@@ -98,9 +98,9 @@ const styles = StyleSheet.create({
     height: elementHeight,
     flex: 1,
     justifyContent: 'center',
-    backgroundColor: Colors.red,
+    backgroundColor: Colors.black,
     borderBottomWidth: BorderSizes.thin,
-    borderColor: Colors.black,
+    borderColor: Colors.white,
   },
   welcome: {
     fontSize: FontsSizes.medium,
