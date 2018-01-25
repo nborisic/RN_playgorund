@@ -122,7 +122,6 @@ const styles = StyleSheet.create({
     alignSelf: 'flex-start',
     paddingLeft: PixelSizes.small,
     flexDirection: 'row',
-  //  backgroundColor: Colors.blue,
   },
   lineStyle: {
     flexDirection: 'row',

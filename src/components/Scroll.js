@@ -69,7 +69,7 @@ class Scroll extends Component {
         <View style={ styles.container } key={ i }>
           <TextAnimated
             text={ text }
-            duration={ 3000 }
+            duration={ 2000 }
           />
         </View>
       );

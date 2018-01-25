@@ -8,6 +8,7 @@ import {
 import PropTypes from 'prop-types';
 import {
   FontsSizes,
+  PixelSizes,
 } from '../../resources';
 import Line from './Line';
 
@@ -35,7 +36,7 @@ export default class TextAnimated extends Component {
     let subArray = [];
     for (let i = 0; i < sortedArray.length; i++) {
       sum += sortedArray[i].width;
-      if (sum > screenWidth - 20) { // 20px - offset from screen egde
+      if (sum > screenWidth - PixelSizes.medium) { // offset from screen egde
         array.push(subArray);
         subArray = [sortedArray[i]];
         sum = sortedArray[i].width;
