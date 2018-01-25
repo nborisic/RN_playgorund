@@ -6,6 +6,9 @@ import {
   Dimensions,
 } from 'react-native';
 import PropTypes from 'prop-types';
+import {
+  FontsSizes,
+} from '../../resources';
 import Line from './Line';
 
 
@@ -32,7 +35,7 @@ export default class TextAnimated extends Component {
     let subArray = [];
     for (let i = 0; i < sortedArray.length; i++) {
       sum += sortedArray[i].width;
-      if (sum > screenWidth - 10) {
+      if (sum > screenWidth - 20) { // 20px - offset from screen egde
         array.push(subArray);
         subArray = [sortedArray[i]];
         sum = sortedArray[i].width;
@@ -98,6 +101,7 @@ TextAnimated.propTypes = {
 
 const styles = StyleSheet.create({
   text: {
+    fontSize: FontsSizes.medium,
     position: 'absolute',
     top: -9999,
   },

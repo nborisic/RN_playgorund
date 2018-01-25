@@ -3,9 +3,14 @@ import {
   StyleSheet,
   Text,
   Animated,
+  Dimensions,
 } from 'react-native';
 import PropTypes from 'prop-types';
 import { Colors, FontsSizes, PixelSizes } from '../../resources';
+
+const {
+  width: deviceWidth,
+} = Dimensions.get('window');
 
 export default class Line extends Component {
   constructor() {
@@ -23,7 +28,7 @@ export default class Line extends Component {
       this.state.widthAnimation,
       {
         delay,
-        toValue: 360,
+        toValue: deviceWidth,
         duration: this.props.duration,
       }
     ).start();
@@ -67,7 +72,8 @@ export default class Line extends Component {
           numberOfLines={ 1 }
           style={ {
           flexDirection: 'row',
-          height: FontsSizes.medium,
+          color: Colors.white,
+          fontSize: FontsSizes.medium,
           } }
           key={ index }
         >{ item }
@@ -76,13 +82,19 @@ export default class Line extends Component {
     }) : null;
   }
 
+
   render() {
     const { line } = this.props;
     const { stop, widthAnimation } = this.state;
 
+    const interpolateOpacity = widthAnimation.interpolate({
+      inputRange: [0, deviceWidth],
+      outputRange: [0, 1],
+    });
     const styleFromStyles = styles.animatedView;
     const widthObject = {
       width: widthAnimation,
+      opacity: interpolateOpacity,
     };
     return (
       <Animated.View
@@ -102,15 +114,15 @@ Line.propTypes = {
 
 const styles = StyleSheet.create({
   text: {
-    color: Colors.black,
-    height: FontsSizes.medium,
+    fontSize: FontsSizes.medium,
+    color: Colors.white,
   },
   animatedView: {
     overflow: 'hidden',
     alignSelf: 'flex-start',
     paddingLeft: PixelSizes.small,
     flexDirection: 'row',
-    backgroundColor: Colors.blue,
+  //  backgroundColor: Colors.blue,
   },
   lineStyle: {
     flexDirection: 'row',
