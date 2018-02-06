@@ -104,7 +104,7 @@ const styles = StyleSheet.create({
     borderColor: Colors.white,
   },
   welcome: {
-    fontSize: FontsSizes.medium,
+    fontSize: FontsSizes.small,
     textAlign: 'center',
     margin: PixelSizes.medium,
   },

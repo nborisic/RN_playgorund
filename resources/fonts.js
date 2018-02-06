@@ -1,5 +1,6 @@
 const FontsSizes = {
-  medium: 20,
+  small: 20,
+  medium: 30,
   large: 40,
 };
 
