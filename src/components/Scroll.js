@@ -70,6 +70,7 @@ class Scroll extends Component {
           <TextAnimated
             text={ text }
             duration={ 1500 }
+            navigation={ this.props.navigation }
           />
         </View>
       );
@@ -117,6 +118,7 @@ const mapStateToProps = (state) => {
 
 Scroll.propTypes = {
   getData: PropTypes.func,
+  navigation: PropTypes.object,
   data: PropTypes.object,
 };
 
