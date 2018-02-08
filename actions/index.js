@@ -1,10 +1,9 @@
 import { createClient } from 'contentful';
-import { clientToken, handbookGuideModel } from '../utils/contentful';
+import { clientToken, handbookGuideModel, handbookCitiesModel } from '../utils/contentful';
 
 export const GET_DATA_START = 'GET_DATA_START';
 export const GET_DATA_ERROR = 'GET_DATA_ERROR';
 export const GET_DATA_SUCCESS = 'GET_DATA_SUCCESS';
-
 
 function getDataStart() {
   return {
@@ -12,16 +11,17 @@ function getDataStart() {
   };
 }
 
-function getDataSuccess(data) {
+function getDataSuccess(data, contentType) {
   return {
     type: GET_DATA_SUCCESS,
     data,
+    contentType,
   };
 }
 
 function getDataError(error) {
   return {
-    type: GET_DATA_SUCCESS,
+    type: GET_DATA_ERROR,
     error,
   };
 }
@@ -29,13 +29,29 @@ function getDataError(error) {
 
 const client = createClient(clientToken);
 
-export function getData() {
+function getContentTypeByModel(model) {
+  let contentType;
+  switch (model) {
+    case 'Cities':
+      contentType = handbookCitiesModel;
+      break;
+    case 'Scroll':
+      contentType = handbookGuideModel;
+      break;
+    default:
+      return null;
+  }
+  return contentType;
+}
+
+export function getData(model) {
   return function (dispatch) {
+    const contentType = getContentTypeByModel(model);
     dispatch(getDataStart());
     client.getEntries({
-      content_type: handbookGuideModel,
+      content_type: contentType,
     })
-      .then(data => dispatch(getDataSuccess(data)))
+      .then(data => dispatch(getDataSuccess(data, contentType)))
       .catch(error => dispatch(getDataError(error)));
   };
 }

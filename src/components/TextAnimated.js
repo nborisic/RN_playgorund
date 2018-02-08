@@ -12,7 +12,6 @@ import {
 } from '../../resources';
 import Line from './Line';
 
-
 export default class TextAnimated extends Component {
   constructor() {
     super();

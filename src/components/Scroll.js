@@ -31,7 +31,7 @@ class Scroll extends Component {
   }
 
   componentWillMount() {
-    this.props.getData();
+    this.props.getData('Scroll');
   }
 
   /**
@@ -60,7 +60,7 @@ class Scroll extends Component {
 
   renderComponents() {
     const componentsArray = [];
-    const text = this.props.data.contentfulData.items[0].fields.shortDescritpion;
+    const text = this.props.data.items[0].fields.shortDescritpion;
     for (let i = 0; i < numberOfElements; i++) {
       componentsArray.push(
         <View style={ styles.container } key={ i }>
@@ -76,7 +76,7 @@ class Scroll extends Component {
   }
 
   render() {
-    if (!this.props.data.contentfulData) {
+    if (!this.props.data) {
       return (<View><Text>Loading...</Text></View>);
     }
     return (
@@ -104,7 +104,7 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = (state) => {
   return {
-    data: state.contentfulData,
+    data: state.contentfulData.scrollData,
   };
 };
 
