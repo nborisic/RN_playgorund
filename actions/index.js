@@ -5,11 +5,6 @@ export const GET_DATA_START = 'GET_DATA_START';
 export const GET_DATA_ERROR = 'GET_DATA_ERROR';
 export const GET_DATA_SUCCESS = 'GET_DATA_SUCCESS';
 
-// export const GET_SCROLL_DATA_START = 'GET_SCROLL_DATA_START';
-// export const GET_SCROLL_ERROR = 'GET_SCROLL_ERROR';
-// export const GET_SCROLL_SUCCESS = 'GET_SCROLL_SUCCESS';
-
-
 function getDataStart() {
   return {
     type: GET_DATA_START,
