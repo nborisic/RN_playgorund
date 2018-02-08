@@ -5,3 +5,4 @@ export const clientToken = {
 
 
 export const handbookGuideModel = 'H_guide';
+export const handbookCitiesModel = 'cities';

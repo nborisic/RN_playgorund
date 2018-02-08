@@ -9,8 +9,8 @@ const initinalState = {
   getDataLaoding: false,
   getDataError: null,
   contentfulData: null,
+  scrollData: null,
 };
-
 
 const actionMap = {
   [GET_DATA_START]: (state) => {
@@ -28,10 +28,15 @@ const actionMap = {
     };
   },
   [GET_DATA_SUCCESS]: (state, action) => {
+    const typeMap = {
+      'cities': 'contentfulData',
+      'H_guide': 'scrollData',
+    };
+
     return {
       ...state,
       getDataLaoding: false,
-      contentfulData: action.data,
+      [typeMap[action.contentType]]: action.data,
     };
   },
 };

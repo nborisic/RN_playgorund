@@ -20,29 +20,6 @@ const {
   height: deviceHeight,
 } = Dimensions.get('window');
 
-const cities = [
-  {
-    name: 'Belgrade',
-    description: 'Gospodar Jovanova 2, Belgrade, Serbia',
-  },
-  {
-    name: 'New York',
-    description: '231 Front St, 5th Floor, Brooklyn, NY 11201',
-  },
-  {
-    name: 'Portland',
-    description: '317 SW Alder St, #450, Portland, OR 97204',
-  },
-  {
-    name: 'Rio de Janeiro',
-    description: 'Ladeira da Glória 26, Casa VII, Rio de Janeiro, RJ',
-  },
-  {
-    name: 'São Paulo',
-    description: 'R. Fidalga, 593, São Paulo, SP',
-  },
-];
-
 class CityList extends Component {
   constructor(props) {
     super(props);
@@ -54,6 +31,10 @@ class CityList extends Component {
     };
 
     this.handleScroll = this.handleScroll.bind(this);
+  }
+
+  componentWillMount() {
+    this.props.getData('Cities');
   }
 
   componentDidMount() {
@@ -121,7 +102,7 @@ class CityList extends Component {
       offsetSlides = Math.floor(e.nativeEvent.contentOffset.y / deviceHeight);
     }
     offsetValue = offsetSlides * deviceHeight;
-    if (offsetValue === (cities.length) * deviceHeight) {
+    if (offsetValue === (this.props.data.items.length) * deviceHeight) {
       offsetValue = e.nativeEvent.contentSize.height - deviceHeight;
     } else if (offsetValue < 0) {
       offsetValue = 0;
@@ -147,7 +128,11 @@ class CityList extends Component {
   }
 
   renderCities() {
-    return cities.map((item, index) => {
+    const array = this.props.data && this.props.data.items;
+    const cities = array && array.sort((a, b) => {
+      return new Date(a.sys.createdAt) - new Date(b.sys.createdAt);
+    });
+    return this.props.data ? cities.map((item, index) => {
       return (
         <City
           handleTranslatedTitleClick={ () => this.handleTranslatedTitleClick() }
@@ -157,7 +142,7 @@ class CityList extends Component {
           navigation={ this.props.navigation }
         />
       );
-    });
+    }) : null;
   }
 
   render() {
@@ -206,12 +191,14 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = (state) => {
   return {
-    data: state.contentfulData,
+    data: state.contentfulData.contentfulData,
   };
 };
 
 CityList.propTypes = {
+  getData: PropTypes.func,
   navigation: PropTypes.object,
+  data: PropTypes.object,
 };
 
 export default connect(mapStateToProps, actions)(CityList);

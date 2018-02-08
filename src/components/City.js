@@ -45,9 +45,9 @@ class City extends Component {
           <Text
             style={ this.props.isActive ? styles.title : styles.titleTranslated }
             onPress={ this.props.isActive ? null : this.props.handleTranslatedTitleClick }
-          >{ this.props.info.name }
+          >{ this.props.info.fields.name }
           </Text>
-          { this.splitSentence(this.props.info.description) }
+          { this.splitSentence(this.props.info.fields.description) }
         </View>
         <Button
           alignment={ {
