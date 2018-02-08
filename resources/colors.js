@@ -6,6 +6,7 @@ const Colors = {
   gray: '#cccccc',
   transparent: 'transparent',
   overlayOpacity: 0.4,
+  backgroundOpacity: 0.8,
 };
 
 export { Colors };

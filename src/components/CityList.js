@@ -50,7 +50,7 @@ class CityList extends Component {
     this.state = {
       offset: 0,
       activeScreen: 1,
-      opacityValue: new Animated.Value(0.8),
+      opacityValue: new Animated.Value(Colors.backgroundOpacity),
     };
 
     this.handleScroll = this.handleScroll.bind(this);
@@ -65,7 +65,7 @@ class CityList extends Component {
       Animated.timing(
         this.state.opacityValue,
         {
-          toValue: 0.8,
+          toValue: Colors.backgroundOpacity,
           duration: Times.backgroundImageDuration,
         }).start(() => this.runAnimation());
     }
