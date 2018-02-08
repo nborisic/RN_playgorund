@@ -91,7 +91,7 @@ const styles = StyleSheet.create({
     height: '100%',
   },
   text: {
-    ...Styles.mediumText,
+    ...Styles.mediumBoldText,
   },
   star: {
     fontSize: FontsSizes.small,

@@ -94,7 +94,7 @@ const styles = StyleSheet.create({
   description: {
     backgroundColor: Colors.transparent,
     color: Colors.gray,
-    ...Styles.customTwo,
+    ...Styles.descriptionText,
     paddingRight: PixelSizes.medium,
   },
 });

@@ -16,19 +16,19 @@ const Styles = {
     fontSize: FontsSizes.large,
     fontFamily: defaultBoldFont,
   },
-  smallText: {
+  smallBoldText: {
     fontSize: FontsSizes.xsmall,
     fontFamily: defaultBoldFont,
   },
-  mediumText: {
+  mediumBoldText: {
     fontSize: FontsSizes.medium,
     fontFamily: defaultBoldFont,
   },
-  custom: {
+  smallText: {
     fontSize: FontsSizes.small,
     fontFamily: defaultFont,
   },
-  customTwo: {
+  descriptionText: {
     fontSize: FontsSizes.description,
     fontFamily: defaultFont,
   },

@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   text: {
-    ...Styles.custom,
+    ...Styles.smallText,
     color: Colors.white,
     backgroundColor: Colors.transparent,
   },
