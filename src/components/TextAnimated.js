@@ -103,7 +103,7 @@ TextAnimated.propTypes = {
 
 const styles = StyleSheet.create({
   text: {
-    fontSize: FontsSizes.medium,
+    fontSize: FontsSizes.small,
     position: 'absolute',
     top: -9999,
   },

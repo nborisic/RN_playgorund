@@ -1,7 +1,11 @@
 const PixelSizes = {
-  small: 5,
+  xsmall: 5,
+  small: 10,
   medium: 20,
   large: 40,
+  xlarge: 60,
+  xxlarge: 80,
+  xxxlarge: 100,
 };
 
 const BorderSizes = {

@@ -4,6 +4,7 @@ import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import reducers from './reducers';
 import Navigator from './Navigator.js';
+import SplashScreen from './src/components/SplashScreen';
 
 const store = createStore(
   reducers,
@@ -11,10 +12,24 @@ const store = createStore(
 );
 
 export default class App extends Component {
+  constructor() {
+    super();
+
+    this.state = {
+      isLoading: true,
+    };
+
+    setTimeout(() => {
+      this.setState({
+        isLoading: false,
+      });
+    }, 3000);
+  }
   render() {
+    const { isLoading } = this.state;
     return (
       <Provider store={ store }>
-        <Navigator />
+        { isLoading ? <SplashScreen /> : <Navigator /> }
       </Provider>
     );
   }

@@ -11,12 +11,9 @@ import PropTypes from 'prop-types';
 import * as actions from '../../actions';
 import {
   Colors,
-  FontsSizes,
-  PixelSizes,
   BorderSizes } from '../../resources';
 import { numberOfElements, elementHeight } from '../../utils/scroll';
 import TextAnimated from './TextAnimated';
-
 
 const {
   height: deviceHeight,
@@ -102,11 +99,6 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.black,
     borderBottomWidth: BorderSizes.thin,
     borderColor: Colors.white,
-  },
-  welcome: {
-    fontSize: FontsSizes.medium,
-    textAlign: 'center',
-    margin: PixelSizes.medium,
   },
 });
 

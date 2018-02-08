@@ -73,7 +73,7 @@ export default class Line extends Component {
           style={ {
           flexDirection: 'row',
           color: Colors.white,
-          fontSize: FontsSizes.medium,
+          fontSize: FontsSizes.xsmall,
           } }
           key={ index }
           onPress={ () => this.props.navigation.navigate('About') }
@@ -121,18 +121,18 @@ Line.propTypes = {
 
 const styles = StyleSheet.create({
   text: {
-    fontSize: FontsSizes.medium,
+    fontSize: FontsSizes.xsmall,
     color: Colors.white,
   },
   animatedView: {
     overflow: 'hidden',
     alignSelf: 'flex-start',
-    paddingLeft: PixelSizes.small,
+    paddingLeft: PixelSizes.medium,
     flexDirection: 'row',
   },
   lineStyle: {
     flexDirection: 'row',
-    paddingLeft: PixelSizes.small,
-    paddingRight: PixelSizes.small,
+    paddingLeft: PixelSizes.medium,
+    paddingRight: PixelSizes.medium,
   },
 });
