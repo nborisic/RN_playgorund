@@ -7,6 +7,7 @@ const RootNavigator = StackNavigator({
   Home: {
     screen: CityList,
     navigationOptions: {
+      header: null,
       headerTitle: 'Home',
     },
   },

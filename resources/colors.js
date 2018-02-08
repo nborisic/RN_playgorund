@@ -3,6 +3,9 @@ const Colors = {
   black: '#000000',
   white: '#ffffff',
   blue: '#0000ff',
+  gray: '#cccccc',
+  transparent: 'transparent',
+  overlayOpacity: 0.4,
 };
 
 export { Colors };
