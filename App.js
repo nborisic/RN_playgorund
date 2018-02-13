@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
+import SplashScreen from 'react-native-splash-screen';
 import reducers from './reducers';
 import Navigator from './Navigator.js';
-import SplashScreen from './src/components/SplashScreen';
 
 const store = createStore(
   reducers,
@@ -12,24 +12,16 @@ const store = createStore(
 );
 
 export default class App extends Component {
-  constructor() {
-    super();
-
-    this.state = {
-      isLoading: true,
-    };
-
+  componentDidMount() {
     setTimeout(() => {
-      this.setState({
-        isLoading: false,
-      });
-    }, 3000);
+      SplashScreen.hide();
+    }, 2000);
   }
+
   render() {
-    const { isLoading } = this.state;
     return (
       <Provider store={ store }>
-        { isLoading ? <SplashScreen /> : <Navigator /> }
+        <Navigator />
       </Provider>
     );
   }

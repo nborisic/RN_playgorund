@@ -1,6 +1,6 @@
 import { StackNavigator } from 'react-navigation';
 import CityList from './src/components/CityList';
-import Scroll from './src/components/Scroll';
+import Positions from './src/components/Positions';
 import About from './src/components/About';
 
 const RootNavigator = StackNavigator({
@@ -17,10 +17,10 @@ const RootNavigator = StackNavigator({
       headerTitle: 'About',
     },
   },
-  Scroll: {
-    screen: Scroll,
+  Positions: {
+    screen: Positions,
     navigationOptions: {
-      headerTitle: 'Scroll',
+      headerTitle: 'Positions',
     },
   },
 });
