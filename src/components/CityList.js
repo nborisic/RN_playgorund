@@ -102,7 +102,7 @@ class CityList extends Component {
       offsetSlides = Math.floor(e.nativeEvent.contentOffset.y / deviceHeight);
     }
     offsetValue = offsetSlides * deviceHeight;
-    if (offsetValue === (this.props.data.items.length) * deviceHeight) {
+    if (offsetValue === this.props.data.items.length * deviceHeight) {
       offsetValue = e.nativeEvent.contentSize.height - deviceHeight;
     } else if (offsetValue < 0) {
       offsetValue = 0;
@@ -151,7 +151,6 @@ class CityList extends Component {
         <Animated.Image source={ this.getImageForCity() } style={ [styles.image, { opacity: this.state.opacityValue }] } />
         <View style={ styles.overlay } />
         <ScrollView
-          onScrollBeginDrag={ this.handleBegin }
           onScrollEndDrag={ this.handleScroll }
           overScrollMode='never'
           ref={ comp => { this.myScroll = comp; } }

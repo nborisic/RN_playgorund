@@ -77,7 +77,7 @@ export default class TextAnimated extends Component {
     const { lines } = this.state;
     return lines.map((item, index) => {
       return (
-        <Line line={ item } index={ index } key={ index } duration={ duration } navigation={ this.props.navigation } />
+        <Line line={ item } index={ index } key={ index } duration={ duration } />
       );
     });
   }
@@ -96,7 +96,6 @@ export default class TextAnimated extends Component {
 
 TextAnimated.propTypes = {
   text: PropTypes.string,
-  navigation: PropTypes.object,
   duration: PropTypes.number,
 };
 

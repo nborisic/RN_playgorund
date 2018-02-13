@@ -4,7 +4,6 @@ import {
   ScrollView,
 } from 'react-native';
 import PropTypes from 'prop-types';
-import { numberOfElements, elementHeight } from '../../utils/scroll';
 
 const {
   height: deviceHeight,
@@ -28,13 +27,15 @@ class Scroll extends Component {
   handleScroll(e) {
     let offsetValue;
     let offsetSlides;
+    const numberOfElements = this.props.children.length;
+    const { elementHeight } = this.props;
     if (this.state.offset < e.nativeEvent.contentOffset.y) {
       offsetSlides = Math.ceil(e.nativeEvent.contentOffset.y / elementHeight);
     } else {
       offsetSlides = Math.floor(e.nativeEvent.contentOffset.y / elementHeight);
     }
     offsetValue = offsetSlides * elementHeight;
-    if (offsetValue === (numberOfElements - 1) * elementHeight) {
+    if (offsetValue === numberOfElements * elementHeight) {
       offsetValue = e.nativeEvent.contentSize.height - deviceHeight;
     } else if (offsetValue < 0) {
       offsetValue = 0;
@@ -60,6 +61,7 @@ class Scroll extends Component {
 
 Scroll.propTypes = {
   children: PropTypes.array,
+  elementHeight: PropTypes.number,
 };
 
 export default Scroll;

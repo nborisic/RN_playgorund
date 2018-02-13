@@ -76,7 +76,6 @@ export default class Line extends Component {
           fontSize: FontsSizes.xsmall,
           } }
           key={ index }
-          onPress={ () => this.props.navigation.navigate('About') }
         >{ item }
         </Text>
       );
@@ -104,7 +103,6 @@ export default class Line extends Component {
         { stop ?
           <Text
             style={ styles.text }
-            onPress={ () => this.props.navigation.navigate('About') }
           >{ line }
           </Text> : this.renderRandomWords() }
       </Animated.View>
@@ -115,7 +113,6 @@ export default class Line extends Component {
 Line.propTypes = {
   line: PropTypes.string,
   duration: PropTypes.number,
-  navigation: PropTypes.object,
   index: PropTypes.number,
 };
 
