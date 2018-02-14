@@ -92,17 +92,18 @@ export default class Line extends Component {
       outputRange: [0, 1],
     });
     const styleFromStyles = styles.animatedView;
-    const widthObject = {
+    const widthObject = this.props.direction === 'down' ? {
       width: widthAnimation,
       opacity: interpolateOpacity,
-    };
+    } : null;
     return (
       <Animated.View
         style={ [styleFromStyles, widthObject] }
       >
-        { stop ?
+        { stop || this.props.direction === 'up' ?
           <Text
             style={ styles.text }
+            numberOfLines={ 1 }
           >{ line }
           </Text> : this.renderRandomWords() }
       </Animated.View>
@@ -113,6 +114,7 @@ export default class Line extends Component {
 Line.propTypes = {
   line: PropTypes.string,
   duration: PropTypes.number,
+  direction: PropTypes.string,
   index: PropTypes.number,
 };
 
@@ -120,6 +122,7 @@ const styles = StyleSheet.create({
   text: {
     fontSize: FontsSizes.xsmall,
     color: Colors.white,
+    flexDirection: 'row',
   },
   animatedView: {
     overflow: 'hidden',

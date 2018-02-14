@@ -5,11 +5,14 @@ import {
   Dimensions,
   ScrollView,
   Animated,
+  Modal,
+  Text,
 } from 'react-native';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Colors, PixelSizes } from '../../resources';
 import TextAnimated from './TextAnimated';
+import ClickableView from './ClickableView';
 import Button from './Button';
 import * as actions from '../../actions';
 
@@ -26,6 +29,9 @@ class Positions extends Component {
       offset: 0,
       activeScreen: 1,
       opacityValue: new Animated.Value(0),
+      direction: 'down',
+      modalVisible: false,
+      modalIndex: 0,
     };
 
     this.handleScroll = this.handleScroll.bind(this);
@@ -33,37 +39,31 @@ class Positions extends Component {
 
   componentDidMount() {
     setTimeout(() => {
+      this.runAnimation();
+    }, 4000);
+  }
+
+  componentWillUpdate(nextProps, nextState) {
+    if (this.state.activeScreen !== nextState.activeScreen) {
       Animated.timing(
         this.state.opacityValue,
         {
-          toValue: 1,
-          duration: 500,
-        }
-      ).start();
-    }, 3000);
+          toValue: 0,
+          duration: 0,
+        }).start(() => setTimeout(() => {
+        this.runAnimation();
+      }, 2500));
+    }
   }
 
-  getImageForPosition() {
-    let imageSource;
-    /*eslint-disable */
-    switch(this.state.activeScreen) {
-      case 1:
-        imageSource = require('../images/wc.png');
-        break;
-      case 2:
-        imageSource = require('../images/dev.jpg');
-        break;
-      case 3:
-        imageSource = require('../images/qa.jpg');
-        break;
-      case 4:
-        imageSource = require('../images/dev.jpg');
-        break;
-        default:
-        return null;
-    }
-    /* eslint-enable */
-    return imageSource;
+  runAnimation() {
+    Animated.timing(
+      this.state.opacityValue,
+      {
+        toValue: 1,
+        duration: 500,
+      }
+    ).start();
   }
 
   handleScroll(e) {
@@ -71,10 +71,13 @@ class Positions extends Component {
     let offsetSlides;
     const { params } = this.props.navigation.state;
     const jobs = params.positions;
+    let direction;
     if (this.state.offset < e.nativeEvent.contentOffset.y) {
       offsetSlides = Math.ceil(e.nativeEvent.contentOffset.y / deviceHeight);
+      direction = 'down';
     } else {
       offsetSlides = Math.floor(e.nativeEvent.contentOffset.y / deviceHeight);
+      direction = 'up';
     }
     offsetValue = offsetSlides * deviceHeight;
     if (offsetValue === jobs.length * deviceHeight) {
@@ -86,6 +89,20 @@ class Positions extends Component {
     this.setState({
       offset: offsetValue,
       activeScreen: (offsetValue / deviceHeight) + 1,
+      direction,
+    });
+  }
+
+  handleClick(i) {
+    this.setState({
+      modalVisible: true,
+      modalIndex: i,
+    });
+  }
+
+  closeModal() {
+    this.setState({
+      modalVisible: false,
     });
   }
 
@@ -94,33 +111,88 @@ class Positions extends Component {
     const jobs = params.positions;
     return jobs.map((item, index) => {
       return (
-        <View
+        <ClickableView
           key={ index }
           style={ styles.view }
+          cta={ () => this.handleClick(index) }
         >
-          <TextAnimated
-            text={ item.position }
-            duration={ 1500 }
-          />
-        </View>
+          <View>
+            <TextAnimated
+              text={ item.position }
+              duration={ 1500 }
+              start={ index === this.state.activeScreen - 1 }
+              direction={ this.state.direction }
+            />
+            <TextAnimated
+              text={ item.moreInfo }
+              duration={ 1500 }
+              start={ index === this.state.activeScreen - 1 }
+              direction={ this.state.direction }
+            />
+          </View>
+        </ClickableView>
       );
     });
+  }
+
+  renderModal() {
+    const { params } = this.props.navigation.state;
+    const descriptionsArray = params.positions[this.state.modalIndex].description;
+    return (
+      <Modal
+        visible={ this.state.modalVisible }
+        animationType='slide'
+        onRequestClose={ () => this.closeModal() }
+      >
+        <View style={ styles.modal }>
+          <Button
+            cta={ () => this.closeModal() }
+            text='X'
+            alignment={ {
+                width: 30,
+                height: 30,
+                backgroundColor: 'red',
+                position: 'absolute',
+                top: 30,
+                right: 30,
+                bottom: 0,
+                borderRadius: 30,
+            } }
+          />
+          <ScrollView>
+            <View style={ styles.modalContent }>
+              { descriptionsArray.map((item, index) => {
+                return (
+                  <Text
+                    style={ styles.modalText }
+                    key={ index }
+                  >{ item }
+                  </Text>
+                );
+              }) }
+            </View>
+          </ScrollView>
+        </View>
+      </Modal>
+    );
   }
 
   render() {
     return (
       <View style={ styles.container }>
         <Button
-          text='Go back'
+          image={ require('../images/arrow.png') } //eslint-disable-line
           alignment={ {
-              width: 100,
+              width: 10,
               zIndex: 1,
-              marginTop: 15,
+              marginTop: 20,
+              marginLeft: 30,
+              transform: [{ rotate: '180deg' }],
           } }
           cta={ () => this.props.navigation.goBack() }
         />
         <Animated.Image
-          source={ this.getImageForPosition() }
+          source={ require('../images/wc.png') } //eslint-disable-line
           style={ [styles.image, { opacity: this.state.opacityValue }] }
         />
         <View style={ styles.overlay } />
@@ -130,6 +202,7 @@ class Positions extends Component {
           ref={ comp => { this.myScroll = comp; } }
         >
           { this.renderPositions() }
+          { this.renderModal() }
         </ScrollView>
       </View>
     );
@@ -149,7 +222,6 @@ const styles = StyleSheet.create({
   view: {
     height: deviceHeight,
     backgroundColor: Colors.transparent,
-    // position: 'relative',
     paddingTop: PixelSizes.xlarge,
     paddingBottom: PixelSizes.xxlarge,
   },
@@ -171,6 +243,14 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     bottom: 0,
+  },
+  modal: {
+    paddingTop: PixelSizes.xlarge,
+    paddingBottom: PixelSizes.small,
+    position: 'relative',
+  },
+  modalText: {
+    marginBottom: PixelSizes.medium,
   },
 });
 

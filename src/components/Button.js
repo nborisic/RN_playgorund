@@ -19,7 +19,7 @@ class Button extends Component {
       /* eslint-disable */
       <TouchableOpacity style={ this.props.alignment } onPress={ this.props.cta }>
         <View style={ [styles.view, this.props.viewStyle] }>
-          <Text style={ [styles.text, this.props.textStyle] }>{ this.props.text }</Text>
+          { this.props.text ? <Text style={ [styles.text, this.props.textStyle] }>{ this.props.text }</Text> : null }
           { this.props.image ?
             <Image style={ [styles.image, this.props.imageStyle] } source={ this.props.image } />
             : null
