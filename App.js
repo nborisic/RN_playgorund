@@ -4,6 +4,7 @@ import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import { StatusBar } from 'react-native';
 import SplashScreen from 'react-native-splash-screen';
+import { Times } from './resources';
 import reducers from './reducers';
 import Navigator from './Navigator.js';
 
@@ -18,7 +19,7 @@ export default class App extends Component {
   componentDidMount() {
     setTimeout(() => {
       SplashScreen.hide();
-    }, 2000);
+    }, Times.splashScreenHide);
   }
 
   render() {
