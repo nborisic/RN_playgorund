@@ -11,7 +11,12 @@ import {
 } from 'react-native';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Colors, PixelSizes } from '../../resources';
+import {
+  Colors,
+  PixelSizes,
+  Times,
+  RotateDegrees,
+} from '../../resources';
 import TextAnimated from './TextAnimated';
 import ClickableView from './ClickableView';
 import Button from './Button';
@@ -41,7 +46,7 @@ class Positions extends Component {
   componentDidMount() {
     setTimeout(() => {
       this.runAnimation();
-    }, 4000);
+    }, Times.positionsFirstDuration);
   }
 
   componentWillUpdate(nextProps, nextState) {
@@ -53,7 +58,7 @@ class Positions extends Component {
           duration: 0,
         }).start(() => setTimeout(() => {
         this.runAnimation();
-      }, 2500));
+      }, Times.positionsOnChangeDuration));
     }
   }
 
@@ -62,7 +67,7 @@ class Positions extends Component {
       this.state.opacityValue,
       {
         toValue: 1,
-        duration: 500,
+        duration: Times.backgroundImageDuration,
       }
     ).start();
   }
@@ -120,13 +125,13 @@ class Positions extends Component {
           <View style={ styles.animatedView }>
             <TextAnimated
               text={ item.position }
-              duration={ 1500 }
+              duration={ Times.textAnimatedDuration }
               start={ index === this.state.activeScreen - 1 }
               direction={ this.state.direction }
             />
             <TextAnimated
               text={ item.moreInfo }
-              duration={ 1500 }
+              duration={ Times.textAnimatedDuration }
               start={ index === this.state.activeScreen - 1 }
               direction={ this.state.direction }
             />
@@ -150,11 +155,11 @@ class Positions extends Component {
             cta={ () => this.closeModal() }
             text='X'
             alignment={ {
-                width: 30,
-                height: 30,
+                width: PixelSizes.big,
+                height: PixelSizes.big,
                 position: 'absolute',
-                top: 30,
-                right: 30,
+                top: PixelSizes.big,
+                right: PixelSizes.big,
             } }
             textStyle={ {
               color: Colors.black,
@@ -185,11 +190,11 @@ class Positions extends Component {
         <Button
           image={ require('../images/arrow.png') } //eslint-disable-line
           alignment={ {
-              width: 10,
+              width: PixelSizes.small,
               zIndex: 1,
-              marginTop: 20,
-              marginLeft: 30,
-              transform: [{ rotate: '180deg' }],
+              marginTop: PixelSizes.medium,
+              marginLeft: PixelSizes.big,
+              transform: [{ rotate: RotateDegrees.halfCircle }],
           } }
           cta={ () => this.props.navigation.goBack() }
         />
@@ -248,7 +253,8 @@ const styles = StyleSheet.create({
   },
   modal: {
     paddingHorizontal: PixelSizes.small,
-    paddingVertical: PixelSizes.xlarge,
+    paddingBottom: PixelSizes.small,
+    paddingTop: PixelSizes.xlarge,
     position: 'relative',
   },
   modalText: {

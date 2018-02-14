@@ -2,6 +2,7 @@ const PixelSizes = {
   xsmall: 5,
   small: 10,
   medium: 20,
+  big: 30,
   large: 40,
   xlarge: 60,
   xxlarge: 80,
@@ -13,4 +14,9 @@ const BorderSizes = {
   thick: 3,
 };
 
-export { PixelSizes, BorderSizes };
+const RotateDegrees = {
+  quarterCircle: '90deg',
+  halfCircle: '180deg',
+};
+
+export { PixelSizes, BorderSizes, RotateDegrees };
