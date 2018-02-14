@@ -6,7 +6,12 @@ import {
   Dimensions,
 } from 'react-native';
 import PropTypes from 'prop-types';
-import { Colors, FontsSizes, PixelSizes } from '../../resources';
+import {
+  Colors,
+  FontsSizes,
+  PixelSizes,
+  Styles,
+} from '../../resources';
 
 const {
   width: deviceWidth,
@@ -120,6 +125,7 @@ Line.propTypes = {
 
 const styles = StyleSheet.create({
   text: {
+    ...Styles.smallText,
     fontSize: FontsSizes.xsmall,
     color: Colors.white,
     flexDirection: 'row',

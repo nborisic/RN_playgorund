@@ -6,6 +6,7 @@ import {
   View,
   StyleSheet,
   Animated,
+  StatusBar,
 } from 'react-native';
 import PropTypes from 'prop-types';
 import {
@@ -148,6 +149,7 @@ class CityList extends Component {
   render() {
     return (
       <View style={ styles.container }>
+        <StatusBar barStyle='light-content' />
         <Animated.Image source={ this.getImageForCity() } style={ [styles.image, { opacity: this.state.opacityValue }] } />
         <View style={ styles.overlay } />
         <ScrollView

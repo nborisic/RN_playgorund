@@ -7,6 +7,7 @@ import {
   Animated,
   Modal,
   Text,
+  StatusBar,
 } from 'react-native';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -116,7 +117,7 @@ class Positions extends Component {
           style={ styles.view }
           cta={ () => this.handleClick(index) }
         >
-          <View>
+          <View style={ styles.animatedView }>
             <TextAnimated
               text={ item.position }
               duration={ 1500 }
@@ -151,12 +152,12 @@ class Positions extends Component {
             alignment={ {
                 width: 30,
                 height: 30,
-                backgroundColor: 'red',
                 position: 'absolute',
                 top: 30,
                 right: 30,
-                bottom: 0,
-                borderRadius: 30,
+            } }
+            textStyle={ {
+              color: Colors.black,
             } }
           />
           <ScrollView>
@@ -180,6 +181,7 @@ class Positions extends Component {
   render() {
     return (
       <View style={ styles.container }>
+        <StatusBar barStyle={ this.state.modalVisible ? 'dark-content' : 'light-content' } />
         <Button
           image={ require('../images/arrow.png') } //eslint-disable-line
           alignment={ {
@@ -245,12 +247,16 @@ const styles = StyleSheet.create({
     bottom: 0,
   },
   modal: {
-    paddingTop: PixelSizes.xlarge,
-    paddingBottom: PixelSizes.small,
+    paddingHorizontal: PixelSizes.small,
+    paddingVertical: PixelSizes.xlarge,
     position: 'relative',
   },
   modalText: {
     marginBottom: PixelSizes.medium,
+  },
+  animatedView: {
+    justifyContent: 'space-between',
+    height: '70%',
   },
 });
 
