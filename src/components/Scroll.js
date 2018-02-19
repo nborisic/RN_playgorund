@@ -1,19 +1,9 @@
 import React, { Component } from 'react';
 import {
   Dimensions,
-  StyleSheet,
-  Text,
-  View,
   ScrollView,
 } from 'react-native';
-import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import * as actions from '../../actions';
-import {
-  Colors,
-  BorderSizes } from '../../resources';
-import { numberOfElements, elementHeight } from '../../utils/scroll';
-import TextAnimated from './TextAnimated';
 
 const {
   height: deviceHeight,
@@ -30,10 +20,6 @@ class Scroll extends Component {
     this.handleScroll = this.handleScroll.bind(this);
   }
 
-  componentWillMount() {
-    this.props.getData('Scroll');
-  }
-
   /**
  * Calculating witch way did the user scroll and moving the ScrollView due to that scroll
  * @param { object } e - native event from scroll
@@ -41,13 +27,15 @@ class Scroll extends Component {
   handleScroll(e) {
     let offsetValue;
     let offsetSlides;
+    const numberOfElements = this.props.children.length;
+    const { elementHeight } = this.props;
     if (this.state.offset < e.nativeEvent.contentOffset.y) {
       offsetSlides = Math.ceil(e.nativeEvent.contentOffset.y / elementHeight);
     } else {
       offsetSlides = Math.floor(e.nativeEvent.contentOffset.y / elementHeight);
     }
     offsetValue = offsetSlides * elementHeight;
-    if (offsetValue === (numberOfElements - 1) * elementHeight) {
+    if (offsetValue === numberOfElements * elementHeight) {
       offsetValue = e.nativeEvent.contentSize.height - deviceHeight;
     } else if (offsetValue < 0) {
       offsetValue = 0;
@@ -58,60 +46,22 @@ class Scroll extends Component {
     });
   }
 
-  renderComponents() {
-    const componentsArray = [];
-    const text = this.props.data.items[0].fields.shortDescritpion;
-    for (let i = 0; i < numberOfElements; i++) {
-      componentsArray.push(
-        <View style={ styles.container } key={ i }>
-          <TextAnimated
-            text={ text }
-            duration={ 1500 }
-            navigation={ this.props.navigation }
-          />
-        </View>
-      );
-    }
-    return componentsArray;
-  }
-
   render() {
-    if (!this.props.data) {
-      return (<View><Text>Loading...</Text></View>);
-    }
     return (
       <ScrollView
         ref={ comp => { this.myScroll = comp; } }
         onScrollEndDrag={ this.handleScroll }
         overScrollMode='never'
       >
-        {this.renderComponents()}
+        { this.props.children }
       </ScrollView>
     );
   }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    height: elementHeight,
-    flex: 1,
-    justifyContent: 'center',
-    backgroundColor: Colors.black,
-    borderBottomWidth: BorderSizes.thin,
-    borderColor: Colors.white,
-  },
-});
-
-const mapStateToProps = (state) => {
-  return {
-    data: state.contentfulData.scrollData,
-  };
-};
-
 Scroll.propTypes = {
-  getData: PropTypes.func,
-  navigation: PropTypes.object,
-  data: PropTypes.object,
+  children: PropTypes.array,
+  elementHeight: PropTypes.number,
 };
 
-export default connect(mapStateToProps, actions)(Scroll);
+export default Scroll;

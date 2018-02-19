@@ -6,7 +6,12 @@ import {
   Dimensions,
 } from 'react-native';
 import PropTypes from 'prop-types';
-import { Colors, FontsSizes, PixelSizes } from '../../resources';
+import {
+  Colors,
+  FontsSizes,
+  PixelSizes,
+  Styles,
+} from '../../resources';
 
 const {
   width: deviceWidth,
@@ -76,7 +81,6 @@ export default class Line extends Component {
           fontSize: FontsSizes.xsmall,
           } }
           key={ index }
-          onPress={ () => this.props.navigation.navigate('About') }
         >{ item }
         </Text>
       );
@@ -93,18 +97,18 @@ export default class Line extends Component {
       outputRange: [0, 1],
     });
     const styleFromStyles = styles.animatedView;
-    const widthObject = {
+    const widthObject = this.props.direction === 'down' ? {
       width: widthAnimation,
       opacity: interpolateOpacity,
-    };
+    } : null;
     return (
       <Animated.View
         style={ [styleFromStyles, widthObject] }
       >
-        { stop ?
+        { stop || this.props.direction === 'up' ?
           <Text
             style={ styles.text }
-            onPress={ () => this.props.navigation.navigate('About') }
+            numberOfLines={ 1 }
           >{ line }
           </Text> : this.renderRandomWords() }
       </Animated.View>
@@ -115,14 +119,16 @@ export default class Line extends Component {
 Line.propTypes = {
   line: PropTypes.string,
   duration: PropTypes.number,
-  navigation: PropTypes.object,
+  direction: PropTypes.string,
   index: PropTypes.number,
 };
 
 const styles = StyleSheet.create({
   text: {
+    ...Styles.smallText,
     fontSize: FontsSizes.xsmall,
     color: Colors.white,
+    flexDirection: 'row',
   },
   animatedView: {
     overflow: 'hidden',

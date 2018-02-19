@@ -1,7 +1,6 @@
 import { StackNavigator } from 'react-navigation';
 import CityList from './src/components/CityList';
-import Scroll from './src/components/Scroll';
-import About from './src/components/About';
+import Positions from './src/components/Positions';
 
 const RootNavigator = StackNavigator({
   Home: {
@@ -11,16 +10,11 @@ const RootNavigator = StackNavigator({
       headerTitle: 'Home',
     },
   },
-  About: {
-    screen: About,
+  Positions: {
+    screen: Positions,
     navigationOptions: {
-      headerTitle: 'About',
-    },
-  },
-  Scroll: {
-    screen: Scroll,
-    navigationOptions: {
-      headerTitle: 'Scroll',
+      header: null,
+      headerTitle: 'Positions',
     },
   },
 });

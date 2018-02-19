@@ -73,22 +73,28 @@ export default class TextAnimated extends Component {
   }
 
   renderLines() {
-    const { duration } = this.props;
+    const { duration, direction } = this.props;
     const { lines } = this.state;
     return lines.map((item, index) => {
       return (
-        <Line line={ item } index={ index } key={ index } duration={ duration } navigation={ this.props.navigation } />
+        <Line
+          line={ item }
+          index={ index }
+          key={ index }
+          duration={ duration }
+          direction={ direction }
+        />
       );
     });
   }
 
   render() {
-    const { text } = this.props;
+    const { text, start } = this.props;
     const { lines } = this.state;
     return (
       <View>
         { this.renderTextAsArray(text) }
-        { lines ? this.renderLines() : null }
+        { start && lines ? this.renderLines() : null }
       </View>
     );
   }
@@ -96,8 +102,9 @@ export default class TextAnimated extends Component {
 
 TextAnimated.propTypes = {
   text: PropTypes.string,
-  navigation: PropTypes.object,
   duration: PropTypes.number,
+  start: PropTypes.bool,
+  direction: PropTypes.string,
 };
 
 const styles = StyleSheet.create({

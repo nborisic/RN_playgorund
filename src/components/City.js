@@ -56,7 +56,10 @@ class City extends Component {
           } }
           text='Read more'
           image={ require('../images/arrow.png') } //eslint-disable-line
-          cta={ () => this.props.navigation.navigate('Scroll') }
+          cta={ () => this.props.navigation.navigate('Positions', {
+            city: this.props.info.fields.name,
+            positions: this.props.info.fields.positions,
+          }) }
           viewStyle={ {
             borderBottomColor: Colors.white,
             borderBottomWidth: BorderSizes.thin,
